@@ -37,14 +37,20 @@ export default () => {
     if (term) {
       setSearchLoading(true);
       searchApi(term);
+    } else {
+      initializeFetch();
     }
   };
 
-  useEffect(() => {
+  const initializeFetch = () => {
     setPageLoading(true);
     searchApi("pasta").then(() => {
       setPageLoading(false);
     });
+  }
+
+  useEffect(() => {
+    initializeFetch();
   }, []);
 
   return {

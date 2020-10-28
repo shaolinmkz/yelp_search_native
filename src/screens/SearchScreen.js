@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import SearchBar from "../components/SearchBar";
+import ResultList from '../components/ResultList';
 import useResults from '../hooks/useResults';
 
 export default () => {
@@ -14,6 +15,10 @@ export default () => {
     results,
     term,
   } = useResults();
+
+  const filterResultByPrice = (price) => {
+    return results.filter((data) => data.price === price);
+  }
 
   return pageLoading ? (
     <View
@@ -40,6 +45,9 @@ export default () => {
       />
       {!!err && <Text style={styles.error}>{err}</Text>}
       <Text>We have found {results.length} results</Text>
+      <ResultList results={filterResultByPrice('$')} title="Cost Effective" />
+      <ResultList results={filterResultByPrice('$$')} title="Bit Pricer" />
+      <ResultList results={filterResultByPrice('$$$')} title="Big Spender" />
     </View>
   );
 };

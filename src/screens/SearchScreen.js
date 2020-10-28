@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
 import SearchBar from "../components/SearchBar";
 import yelp from "../api/yelp";
 
@@ -7,6 +8,7 @@ export default () => {
   const [term, setTerm] = useState("");
   const [err, setErr] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
   const [results, setResults] = useState([]);
 
   const handleTermChange = (value) => {
@@ -14,14 +16,14 @@ export default () => {
     setErr("");
   };
 
-  const searchApi = async () => {
+  const searchApi = async (searchTerm) => {
     try {
       setErr("");
       const { data } = await yelp.get("/search", {
         params: {
           limit: 50,
           location: "san jose",
-          term,
+          term: searchTerm,
         },
       });
 
@@ -37,11 +39,33 @@ export default () => {
   const handleSubmit = () => {
     if (term) {
       setSearchLoading(true);
-      searchApi();
+      searchApi(term);
     }
   };
 
-  return (
+  useEffect(() => {
+    setPageLoading(true)
+    searchApi("pasta")
+    .then(() => {
+      setPageLoading(false)
+    });
+  }, []);
+
+  return pageLoading ? (
+    <View
+      style={{
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        flexDirection: 'row',
+        width: "100%",
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <EvilIcons name="spinner-2" size={150} color="black" />
+    </View>
+  ) : (
     <View style={styles.background}>
       <SearchBar
         onChangeText={handleTermChange}

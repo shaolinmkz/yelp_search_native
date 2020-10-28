@@ -1,0 +1,2 @@
+export const YELP_SEARCH = 'YELP_SEARCH';
+export const SEARCH_LOADING = 'SEARCH_LOADING';

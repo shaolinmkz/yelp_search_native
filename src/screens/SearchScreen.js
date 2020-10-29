@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import SearchBar from "../components/SearchBar";
-import ResultList from '../components/ResultList';
-import useResults from '../hooks/useResults';
+import ResultList from "../components/ResultList";
+import useResults from "../hooks/useResults";
 
 export default () => {
   const {
@@ -18,20 +18,10 @@ export default () => {
 
   const filterResultByPrice = (price) => {
     return results.filter((data) => data.price === price);
-  }
+  };
 
   return pageLoading ? (
-    <View
-      style={{
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        flexDirection: 'row',
-        width: "100%",
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <View style={styles.container}>
       <EvilIcons name="spinner-2" size={150} color="black" />
     </View>
   ) : (
@@ -44,23 +34,34 @@ export default () => {
         loading={searchLoading}
       />
       {!!err && <Text style={styles.error}>{err}</Text>}
-      <Text>We have found {results.length} results</Text>
-      <ResultList results={filterResultByPrice('$')} title="Cost Effective" />
-      <ResultList results={filterResultByPrice('$$')} title="Bit Pricer" />
-      <ResultList results={filterResultByPrice('$$$')} title="Big Spender" />
+      <ScrollView>
+        <ResultList results={filterResultByPrice("$")} title="Cost Effective" />
+        <ResultList results={filterResultByPrice("$$")} title="Bit Pricer" />
+        <ResultList results={filterResultByPrice("$$")} title="Bit Pricer" />
+        <ResultList results={filterResultByPrice("$$$")} title="Big Spender" />
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
   background: {
     backgroundColor: "#fff",
     height: "100%",
-    padding: 10,
-    paddingHorizontal: 15,
   },
   error: {
     padding: 10,
+    marginHorizontal: 15,
     backgroundColor: "red",
     textAlign: "center",
     color: "#fff",

@@ -7,6 +7,7 @@ export default () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
   const [results, setResults] = useState([]);
+  const INITIAL_SEARCH_VALUE = 'bread';
 
   const handleTermChange = (value) => {
     setTerm(value);
@@ -44,7 +45,7 @@ export default () => {
 
   const initializeFetch = () => {
     setPageLoading(true);
-    searchApi("pasta").then(() => {
+    searchApi(INITIAL_SEARCH_VALUE).then(() => {
       setPageLoading(false);
     });
   }

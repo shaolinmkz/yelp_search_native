@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginBottom: 10,
+    margin: 10,
     alignItems: "center",
   },
   input: {

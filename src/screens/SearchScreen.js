@@ -21,7 +21,7 @@ export default () => {
   };
 
   return pageLoading ? (
-    <View style={styles.container}>
+    <View style={styles.loader}>
       <EvilIcons name="spinner-2" size={150} color="black" />
     </View>
   ) : (
@@ -35,17 +35,25 @@ export default () => {
       />
       {!!err && <Text style={styles.error}>{err}</Text>}
       <ScrollView>
-        <ResultList results={filterResultByPrice("$")} title="Cost Effective" />
-        <ResultList results={filterResultByPrice("$$")} title="Bit Pricer" />
-        <ResultList results={filterResultByPrice("$$")} title="Bit Pricer" />
-        <ResultList results={filterResultByPrice("$$$")} title="Big Spender" />
+        <ResultList
+          results={filterResultByPrice("$")}
+          title="Cost Effective"
+        />
+        <ResultList
+          results={filterResultByPrice("$$")}
+          title="Bit Pricer"
+        />
+        <ResultList
+          results={filterResultByPrice("$$$")}
+          title="Big Spender"
+        />
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  loader: {
     position: "absolute",
     top: 0,
     bottom: 0,

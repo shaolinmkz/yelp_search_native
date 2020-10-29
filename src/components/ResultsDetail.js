@@ -1,14 +1,14 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 
-export default function ResultsDetail({
+export default ({
   result: {
     name,
     image_url,
     review_count,
     rating,
   }
-}) {
+}) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: image_url  }} style={styles.image} />
